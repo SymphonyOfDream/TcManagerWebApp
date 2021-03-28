@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.Address">
+
+    <resultMap id="addressMap" type="com.davidlowe.tcmanagerwebapp.models.Address">
+        <id property="id" column="address_id" javaType="int"/>
+        <result property="street1" column="street1_tx"/>
+        <result property="street2" column="street2_tx"/>
+        <result property="city" column="city_tx"/>
+        <result property="zip" column="zip_tx"/>
+        <result property="creationDate" column="address_creation_dt"/>
+
+        <association property="state" resultMap="map.State.stateMap"/>
+        <association property="creatorUser" resultMap="map.User.userMap"/>
+    </resultMap>
+
+
+    <select id="get" parameterType="Integer" resultMap="addressMap">
+        SELECT a.address_id,
+               a.street1_tx,
+               a.street2_tx,
+               a.city_tx,
+               a.state_id,
+               s.name_tx,
+               a.zip_tx,
+               a.address_creator_user_id,
+               a.address_creation_dt
+        FROM addresses a
+            JOIN states s ON a.state_id = s.state_id
+        WHERE address_id = #{value}
+    </select>
+
+
+    <select id="list" resultMap="addressMap">
+        SELECT a.address_id,
+               a.street1_tx,
+               a.street2_tx,
+               a.city_tx,
+               a.state_id,
+               s.name_tx,
+               a.zip_tx,
+               a.address_creator_user_id,
+               a.address_creation_dt
+        FROM addresses
+            JOIN states s ON a.state_id = s.state_id
+        ORDER BY state_id, city_tx, street1_tx
+    </select>
+
+
+    <!-- This insert will update the ID field of the Address object upon insertion into DB. -->
+    <insert id="create" parameterType="com.davidlowe.tcmanagerwebapp.models.Address"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="address_id">
+        INSERT INTO addresses
+        (
+            street1_tx,
+            street2_tx,
+            city_tx,
+            state_id,
+            zip_tx,
+            address_creator_user_id
+        )
+        VALUES
+        (
+            #{street1},
+            #{street2},
+            #{city},
+            #{state.id},
+            #{zip},
+            #{creatorUser.id}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="com.davidlowe.tcmanagerwebapp.models.Address">
+        UPDATE addresses
+        SET street1_tx = #{street1},
+            street2_tx = #{street2},
+            city_tx = #{city},
+            state_id = #{state.id},
+            zip_tx = #{zip}
+        WHERE address_id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="com.davidlowe.tcmanagerwebapp.models.Address">
+        DELETE FROM addresses
+        WHERE address_id = #{id}
+    </delete>
+
+
+    <delete id="deleteAddressForPerson" parameterType="com.davidlowe.tcmanagerwebapp.models.Person">
+        DELETE a
+        FROM Addresses a
+            JOIN People p ON p.address_id = a.address_id
+             AND p.person_id = #{id}
+    </delete>
+
+</mapper>
+

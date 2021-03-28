@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.ListingStatus">
+
+    <resultMap id="listingStatusMap" type="com.davidlowe.tcmanagerwebapp.models.ListingStatus">
+        <id property="id" column="listing_status_id" javaType="int"/>
+        <result property="name" column="name_tx"/>
+        <result property="sortOrderVal" column="sort_order_n"/>
+    </resultMap>
+
+
+    <select id="get" parameterType="Integer" resultMap="listingStatusMap">
+        SELECT listing_status_id,
+               name_tx,
+               sort_order_n
+        FROM listing_statuses
+        WHERE listing_status_id = #{value}
+    </select>
+
+
+    <select id="list" resultMap="listingStatusMap">
+        SELECT listing_status_id,
+               name_tx,
+               sort_order_n
+        FROM listing_statuses
+        ORDER BY sort_order_n
+    </select>
+
+</mapper>
+

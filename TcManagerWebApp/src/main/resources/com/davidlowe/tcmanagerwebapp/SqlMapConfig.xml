@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <environments default="env">
+        <environment id="env">
+            <transactionManager type="JDBC">
+                <property name="commitRequired" value="false"/>
+            </transactionManager>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="${datasource.full.driver}"/>
+                <property name="url"
+                          value="jdbc:${datasource.driver}://${datasource.address}/${datasource.database}?useSSL=true&amp;noAccessToProcedureBodies=true"/>
+                <property name="username" value="${datasource.username}"/>
+                <property name="password" value="${datasource.password}"/>
+
+                <property name="poolMaximumActiveConnections" value="150"/>
+                <property name="poolMaximumIdleConnections" value="15"/>
+                <property name="poolMaximumCheckoutTime" value="90000"/>
+                <property name="poolPingEnabled" value="false"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/State.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Address.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Role.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Person.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/User.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/DataInputStatus.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/DocumentComplianceStatus.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/ListingStatus.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/PropertyType.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Listing.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Realtor.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Brokerage.map.xml"/>
+        <mapper resource="com/davidlowe/tcmanagerwebapp/Team.map.xml"/>
+    </mappers>
+
+</configuration>

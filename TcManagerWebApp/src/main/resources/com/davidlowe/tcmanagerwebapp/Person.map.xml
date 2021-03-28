@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.Person">
+
+    <resultMap id="personMap" type="com.davidlowe.tcmanagerwebapp.models.Person">
+        <id property="id" column="person_id"/>
+        <result property="firstName" column="first_name_tx"/>
+        <result property="lastName" column="last_name_tx"/>
+        <result property="middleInitial" column="middle_initial_tx"/>
+        <result property="email" column="email_tx"/>
+        <result property="phone" column="phone_tx"/>
+        <result property="isPhoneCell" column="is_phone_cell_cd"/>
+        <result property="creationDate" column="person_creation_dt"/>
+
+        <association property="address" resultMap="map.Address.addressMap"/>
+        <association property="creatorUser" columnPrefix="creatorUser_" resultMap="map.User.userMap"/>
+    </resultMap>
+
+
+    <!-- The columns collection does not include creatorUser columns.
+         That collection of data should be done in a separate query. -->
+    <sql id="columns">
+        p.person_id,
+        p.first_name_tx,
+        p.last_name_tx,
+        p.middle_initial_tx,
+        p.email_tx,
+        p.phone_tx,
+        p.is_phone_cell_cd,
+        p.person_creation_dt
+    </sql>
+
+
+    <select id="get" parameterType="Integer" resultMap="map.Person.personMap">
+        SELECT<include refid="map.Person.columns"/>,
+        p.creator_user_id,
+        a.street1_tx,
+        a.street2_tx,
+        a.city_tx,
+        a.state_id,
+        a.zip_tx,
+        FROM people p
+        LEFT JOIN Addresses a ON a.address_id = p.address_id
+        WHERE p.person_id = #{value}
+    </select>
+
+
+    <select id="list" resultMap="map.Person.personMap">
+        SELECT<include refid="map.Person.columns"/>,
+        p.creator_user_id,
+        a.street1_tx,
+        a.street2_tx,
+        a.city_tx,
+        a.state_id,
+        a.zip_tx,
+        FROM people p
+        LEFT JOIN Addresses a ON a.address_id = p.address_id
+        ORDER BY state_id, last_name_tx, first_name_tx
+    </select>
+
+
+    <!-- This insert will update the ID field of the Person object upon insertion into DB. -->
+    <insert id="create" parameterType="com.davidlowe.tcmanagerwebapp.models.Person"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="person_id">
+        INSERT INTO people
+        (
+            first_name_tx,
+            last_name_tx,
+            middle_initial_c,
+            email_tx,
+            phone_tx,
+            is_phone_cell_cd,
+            address_id,
+            person_creator_user_id
+        )
+        VALUES
+        (
+            #{firstName},
+            #{lastName},
+            #{middleInitial},
+            #{email},
+            #{phone},
+            #{isPhoneCell},
+            #{address.id},
+            #{creatorUser.id}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="com.davidlowe.tcmanagerwebapp.models.Person">
+        UPDATE people
+        SET first_name_tx = #{firstName},
+            last_name_tx = #{lastName},
+            middle_initial_tx = #{middleInitial},
+            email_tx = #{email},
+            phone_tx = #{cellPhone},
+            is_phone_cell_cd = #{optInCellPhoneNotifications},
+            address_id = #{address.id}
+        WHERE person_id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="com.davidlowe.tcmanagerwebapp.models.Person">
+        DELETE FROM people
+        WHERE person_id = #{id}
+    </delete>
+
+</mapper>
+

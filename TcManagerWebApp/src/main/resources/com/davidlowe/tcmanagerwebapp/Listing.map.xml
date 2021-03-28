@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.Listing">
+
+    <resultMap id="listingMap" type="com.davidlowe.tcmanagerwebapp.models.Role">
+        <id property="id" column="role_id" javaType="int"/>
+        <result property="name" column="address_id"/>
+        <result property="price" column="price_am"/>
+        <result property="receivedDate" column="received_dt"/>
+        <result property="listDate" column="list_dt"/>
+        <result property="expirationDate" column="expiration_dt"/>
+
+        <association property="propertyType" resultMap="map.PropertyType.propertyTypeMap"/>
+        <association property="listingStatus" resultMap="map.ListingStatus.listingStatusMap"/>
+        <association property="documentComplianceStatus" resultMap="map.DocumentComplianceStatus.documentComplianceStatusMap"/>
+        <association property="dataInputStatus" resultMap="map.DataInputStatus.dataInputStatus"/>
+        <association property="address" resultMap="map.Address.addressMap"/>
+        <association property="creatorUser" columnPrefix="creatorUser_" resultMap="map.User.userMap"/>
+    </resultMap>
+
+    <sql id="columns">
+        l.listing_id,
+        l.address_id,
+        l.property_type_id,
+        l.listing_status_id,
+        l.document_compliance_status_id,
+        l.data_input_status_id,
+        l.price_am,
+        l.received_dt,
+        l.list_dt,
+        l.expiration_dt,
+        l.listing_creator_user_id,
+        l.listing_creation_dt
+    </sql>
+
+
+    <select id="get" parameterType="Integer" resultMap="listingMap">
+        SELECT<include refid="map.Listing.columns"/>
+        FROM listings l
+        WHERE listing_id = #{value}
+    </select>
+
+
+    <select id="list" resultMap="listingMap">
+        SELECT<include refid="map.Listing.columns"/>
+        FROM listings l
+    </select>
+
+</mapper>
+

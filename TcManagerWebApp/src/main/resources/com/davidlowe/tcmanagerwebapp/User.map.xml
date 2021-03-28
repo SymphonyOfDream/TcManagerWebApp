@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.User">
+
+    <resultMap id="userMap" type="com.davidlowe.tcmanagerwebapp.models.User" extends="map.Person.personMap">
+        <result property="userName" column="user_name_tx"/>
+        <result property="isAccountLocked" column="account_locked_cd"/>
+        <result property="password" column="hashed_password_tx"/>
+        <result property="salt" column="hashed_password_salt_tx"/>
+        <result property="userCreationDate" column="user_creation_dt"/>
+    </resultMap>
+
+    <select id="getForLogon" parameterType="String" resultMap="userMap">
+        SELECT user_id AS person_id,
+               user_name_tx,
+               account_locked_cd,
+               hashed_password_tx,
+               hashed_password_salt_tx
+        FROM users
+        WHERE user_name_tx = #{value}
+    </select>
+
+
+    <select id="get" parameterType="Integer" resultMap="userMap">
+        SELECT *
+        FROM v_users
+        WHERE person_id = #{value}
+    </select>
+
+
+    <select id="userNameInUse" parameterType="String" resultType="Integer">
+        SELECT COUNT(*)
+        FROM users
+        WHERE user_name_tx = #{value}
+    </select>
+
+    <!-- The parent Person object must have been inserted into the People table
+         prior to this "create" being called. -->
+    <insert id="create" parameterType="com.davidlowe.tcmanagerwebapp.models.User">
+        INSERT INTO users
+        (
+            user_id,
+            user_name_tx,
+            account_locked_cd,
+            hashed_password_tx,
+            hashed_password_salt_tx
+        )
+        VALUES
+        (
+            #{id},
+            #{userName},
+            #{locked},
+            #{password},
+            #{salt}
+        )
+    </insert>
+
+
+    <!-- This "update" does NOT update any password or salt changes. -->
+    <update id="update" parameterType="com.davidlowe.tcmanagerwebapp.models.User">
+        UPDATE users
+        SET user_name_tx = #{userName}
+        WHERE user_id = #{id}
+    </update>
+
+
+    <update id="updatePassword" parameterType="com.davidlowe.tcmanagerwebapp.models.User">
+        UPDATE users
+        SET hashed_password_tx = #{password},
+            hashed_password_salt_tx = #{salt}
+        WHERE user_id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="com.davidlowe.tcmanagerwebapp.models.User">
+        DELETE FROM users
+        WHERE user_id = #{id}
+    </delete>
+
+
+    <insert id="creatLoginAttempt" parameterType="Map">
+        INSERT INTO users_login_attempts
+        (
+            user_name_typed_tx,
+            ip_address_tx,
+            successful_cd
+        )
+        VALUES
+        (
+            #{userNameTyped},
+            #{ipAddress},
+            #{isSuccessful}
+        )
+    </insert>
+
+</mapper>

@@ -1,0 +1,146 @@
+######################
+# Project Specific
+######################
+TcManagerWebApp/build/www/**
+TcManagerWebApp/src/test/javascript/coverage/
+TcManagerWebApp/src/test/javascript/PhantomJS*/
+
+######################
+# Node
+######################
+TcManagerWebApp/node/
+TcManagerWebApp/node_tmp/
+TcManagerWebApp/node_modules/
+TcManagerWebApp/npm-debug.log.*
+
+######################
+# SASS
+######################
+TcManagerWebApp/.sass-cache/
+
+######################
+# Eclipse
+######################
+TcManagerWebApp/*.pydevproject
+TcManagerWebApp/.project
+TcManagerWebApp/.metadata
+TcManagerWebApp/tmp/
+TcManagerWebApp/tmp/**/*
+TcManagerWebApp/*.tmp
+TcManagerWebApp/*.bak
+TcManagerWebApp/*.swp
+TcManagerWebApp/*~.nib
+TcManagerWebApp/local.properties
+TcManagerWebApp/.classpath
+TcManagerWebApp/.settings/
+TcManagerWebApp/.loadpath
+TcManagerWebApp/.factorypath
+TcManagerWebApp/src/main/resources/rebel.xml
+
+# External tool builders
+TcManagerWebApp/.externalToolBuilders/**
+
+# Locally stored "Eclipse launch configurations"
+TcManagerWebApp/*.launch
+
+# CDT-specific
+TcManagerWebApp/.cproject
+
+# PDT-specific
+TcManagerWebApp/.buildpath
+
+######################
+# Intellij
+######################
+TcManagerWebApp/.idea/
+TcManagerWebApp/*.iml
+TcManagerWebApp/*.iws
+TcManagerWebApp/*.ipr
+TcManagerWebApp/*.ids
+TcManagerWebApp/*.orig
+
+######################
+# Visual Studio Code
+######################
+TcManagerWebApp/.vscode/
+
+######################
+# Maven
+######################
+TcManagerWebApp/log/
+TcManagerWebApp/target/
+
+######################
+# Gradle
+######################
+TcManagerWebApp/.gradle/
+TcManagerWebApp/build/
+
+######################
+# Package Files
+######################
+TcManagerWebApp/*.jar
+TcManagerWebApp/*.war
+TcManagerWebApp/*.ear
+TcManagerWebApp/*.db
+
+######################
+# Windows
+######################
+# Windows image file caches
+TcManagerWebApp/Thumbs.db
+
+# Folder config file
+TcManagerWebApp/Desktop.ini
+
+######################
+# Mac OSX
+######################
+TcManagerWebApp/.DS_Store
+TcManagerWebApp/.svn
+
+# Thumbnails
+TcManagerWebApp/._*
+
+# Files that might appear on external disk
+TcManagerWebApp/.Spotlight-V100
+TcManagerWebApp/.Trashes
+
+######################
+# Directories
+######################
+TcManagerWebApp/bin/
+TcManagerWebApp/deploy/
+
+######################
+# Logs
+######################
+TcManagerWebApp/*.log
+
+######################
+# Others
+######################
+TcManagerWebApp/*.class
+TcManagerWebApp/*.*~
+TcManagerWebApp/*~
+TcManagerWebApp/.merge_file*
+
+######################
+# Gradle Wrapper
+######################
+!TcManagerWebApp/gradle/wrapper/gradle-wrapper.jar
+
+######################
+# Maven Wrapper
+######################
+!TcManagerWebApp/.mvn/wrapper/maven-wrapper.jar
+
+######################
+# ESLint
+######################
+TcManagerWebApp/.eslintcache
+
+######################
+# DataGrip
+######################
+db/externally_collected_data/

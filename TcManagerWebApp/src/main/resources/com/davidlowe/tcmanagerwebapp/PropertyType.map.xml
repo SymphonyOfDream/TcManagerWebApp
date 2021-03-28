@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.PropertyType">
+
+    <resultMap id="propertyTypeMap" type="com.davidlowe.tcmanagerwebapp.models.PropertyType">
+        <id property="id" column="property_type_id" javaType="int"/>
+        <result property="name" column="name_tx"/>
+        <result property="sortOrderVal" column="sort_order_n"/>
+    </resultMap>
+
+
+    <select id="get" parameterType="Integer" resultMap="propertyTypeMap">
+        SELECT property_type_id,
+               name_tx,
+               sort_order_n
+        FROM property_types
+        WHERE property_type_id = #{value}
+    </select>
+
+
+    <select id="list" resultMap="propertyTypeMap">
+        SELECT property_type_id,
+               name_tx,
+               sort_order_n
+        FROM property_types
+        ORDER BY sort_order_n
+    </select>
+
+</mapper>
+

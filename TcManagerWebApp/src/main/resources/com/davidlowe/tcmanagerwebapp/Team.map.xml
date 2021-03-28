@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.Team">
+
+    <resultMap id="teamMap" type="com.davidlowe.tcmanagerwebapp.models.Team">
+        <id property="id" column="team_id"/>
+        <result property="name" column="name_tx"/>
+
+        <association property="creatorUser" resultMap="map.User.userMap"/>
+    </resultMap>
+
+
+    <select id="get" parameterType="Integer" resultMap="teamMap">
+        SELECT team_id,
+               name_tx,
+               broker_id,
+               team_creator_user_id,
+               team_creation_dt
+        FROM teams
+        WHERE team_id = #{value}
+    </select>
+
+    <!-- This insert will update the ID field of the Person object upon insertion into DB. -->
+    <insert id="create" parameterType="com.davidlowe.tcmanagerwebapp.models.Team"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="team_id">
+        INSERT INTO teams
+        (
+            name_tx,
+            team_creator_user_id
+        )
+        VALUES
+        (
+            #{name},
+            #{creatorUser.id}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="com.davidlowe.tcmanagerwebapp.models.Team">
+        UPDATE teams
+        SET name_tx = #{name}
+        WHERE team_id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="com.davidlowe.tcmanagerwebapp.models.Team">
+        DELETE FROM teams
+        WHERE team_id = #{id}
+    </delete>
+
+</mapper>

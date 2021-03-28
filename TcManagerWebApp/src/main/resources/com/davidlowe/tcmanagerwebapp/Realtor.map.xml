@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map.Realtor">
+
+    <resultMap id="realtorMap" type="com.davidlowe.tcmanagerwebapp.models.Realtor" extends="map.Person.personMap">
+        <result property="isBroker" column="is_broker_cd"/>
+        <result property="isAccountLocked" column="account_locked_cd"/>
+        <result property="password" column="hashed_password_tx"/>
+        <result property="salt" column="hashed_password_salt_tx"/>
+        <result property="userCreationDate" column="user_creation_dt"/>
+
+        <association property="brokerage" resultMap="map.Brokerage.realtorMap"/>
+    </resultMap>
+
+
+    <select id="get" parameterType="Integer" resultMap="realtorMap">
+        SELECT r.realtor_id,
+               r.is_broker_cd,
+               r.brokerage_id,
+               b.name_tx,
+               b.broker_id,
+               r.realtor_creator_user_id,
+               r.realtor_creation_dt
+        FROM realtors r
+            JOIN brokerages b ON b.brokerage_id = r.brokerage_id
+        WHERE brokerage_id = #{value}
+    </select>
+
+    <!-- The parent Person object must have been inserted into the People table
+         prior to this "create" being called. -->
+    <insert id="create" parameterType="com.davidlowe.tcmanagerwebapp.models.Realtor">
+        INSERT INTO realtors
+        (
+            realtor_id,
+            is_broker_cd,
+            brokerage_id,
+            realtor_creator_user_id
+        )
+        VALUES
+        (
+            #{id},
+            #{isBroker},
+            #{brokerage.id},
+            #{creatorUser.id}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="com.davidlowe.tcmanagerwebapp.models.Realtor">
+        UPDATE realtors
+        SET is_broker_cd = #{isBroker},
+            brokerge_id = #{brokerage.id}
+        WHERE realtor_id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="com.davidlowe.tcmanagerwebapp.models.Realtor">
+        DELETE FROM realtors
+        WHERE realtor_id = #{id}
+    </delete>
+
+</mapper>
