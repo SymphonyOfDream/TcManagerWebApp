@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <title>TC Manager - User Registration</title>
+</head>
+<body>
+
+
+<form class="form-signin" th:action="@{/security/processRegistration}" th:object="${RegistrationInfo}" id="registrationForm" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
+
+    <div class="form-group">
+        <label for="email" class="sr-only">Email address</label>
+        <input th:field="*{email}" type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label for="desiredUsername" class="sr-only">User name</label>
+        <input th:field="*{desiredUsername}" type="text" id="desiredUsername" name="desiredUsername" class="form-control" placeholder="Desired Username" required>
+    </div>
+
+    <div class="form-group">
+        <label for="firstName" class="sr-only">First Name</label>
+        <input th:field="*{firstName}" type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="middleInitial" class="sr-only">Middle initial</label>
+        <input th:field="*{middleInitial}" type="text" id="middleInitial" name="middleInitial" class="form-control" placeholder="Middle Initial" required>
+    </div>
+
+    <div class="form-group">
+        <label for="lastName" class="sr-only">Last Name</label>
+        <input th:field="*{lastName}" type="text" id="lastName" name="lastName" class="form-control" placeholder="First name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="phone" class="sr-only">Phone</label>
+        <input th:field="*{phone}" type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+    </div>
+
+    <div class="form-group">
+        <input th:field="*{phoneCell}" type="checkbox" id="phoneCell" name="phoneCell" class="form-check-input">
+        <label for="phoneCell" class="form-check-label">Is cell phone</label>
+    </div>
+
+    <div class="form-group">
+        <label for="password1" class="sr-only">Password</label>
+        <input th:field="*{password1}" type="password" id="password1" name="password1" class="form-control" placeholder="Password" required>
+        <input th:field="*{password2}" type="password" id="password2" name="password2" class="form-control" placeholder="Password again" required>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" id="registrationButton">Register</button>
+</form>
+
+
+<script>
+    $(document).ready(
+        function()
+        {
+            $("#registrationButton").click(function()
+                {
+                    if(!validateEmail("email"))
+                    {
+                        return false;
+                    }
+                    if(!validateText("desiredUsername"))
+                    {
+                        return false;
+                    }
+                    if(!validateText("firstName"))
+                    {
+                        return false;
+                    }
+                    if (!validateText("lastName"))
+                    {
+                        return false;
+                    }
+                    if (!validateText("phone"))
+                    {
+                        return false;
+                    }
+                    $("form#registrationForm").submit();
+                }
+            );
+        }
+    );
+</script>
+
+</body>
+</html>
