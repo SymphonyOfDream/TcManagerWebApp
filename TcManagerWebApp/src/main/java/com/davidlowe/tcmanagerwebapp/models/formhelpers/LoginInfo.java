@@ -1,9 +1,7 @@
-package com.davidlowe.tcmanagerwebapp.models;
+package com.davidlowe.tcmanagerwebapp.models.formhelpers;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class LoginInfo implements Serializable

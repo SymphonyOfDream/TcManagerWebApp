@@ -1,4 +1,4 @@
-package com.davidlowe.tcmanagerwebapp.models;
+package com.davidlowe.tcmanagerwebapp.models.formhelpers;
 
 
 import java.io.Serializable;

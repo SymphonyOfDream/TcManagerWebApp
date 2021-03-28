@@ -1,11 +1,10 @@
 package com.davidlowe.tcmanagerwebapp.controllers;
 
 
-import com.davidlowe.tcmanagerwebapp.models.LoginInfo;
-import com.davidlowe.tcmanagerwebapp.models.RegistrationInfo;
+import com.davidlowe.tcmanagerwebapp.models.formhelpers.LoginInfo;
+import com.davidlowe.tcmanagerwebapp.models.formhelpers.RegistrationInfo;
 import com.davidlowe.tcmanagerwebapp.models.User;
 import com.davidlowe.tcmanagerwebapp.services.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
