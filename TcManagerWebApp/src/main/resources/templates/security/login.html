@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout_with_form :: layout (~{::body},'home')}">
 <head>
     <title>TC Manager - Login</title>
 </head>
@@ -20,6 +20,39 @@
         Invalid username and/or password.
     </div>
 </form>
+
+<script>
+    $(document).ready(
+        function()
+        {
+            $("#registrationButton").click(function()
+                {
+                    if(!validateEmail("email"))
+                    {
+                        return false;
+                    }
+                    if(!validateText("desiredUsername"))
+                    {
+                        return false;
+                    }
+                    if(!validateText("firstName"))
+                    {
+                        return false;
+                    }
+                    if (!validateText("lastName"))
+                    {
+                        return false;
+                    }
+                    if (!validateText("phone"))
+                    {
+                        return false;
+                    }
+                    $("form#registrationForm").submit();
+                }
+            );
+        }
+    );
+</script>
 
 </body>
 </html>
