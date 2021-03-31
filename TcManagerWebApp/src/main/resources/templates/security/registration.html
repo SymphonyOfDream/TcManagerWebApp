@@ -26,17 +26,17 @@
 
     <div class="form-group">
         <label for="middleInitial" class="sr-only">Middle initial</label>
-        <input th:field="*{middleInitial}" type="text" id="middleInitial" name="middleInitial" class="form-control" placeholder="Middle Initial" required>
+        <input th:field="*{middleInitial}" type="text" id="middleInitial" name="middleInitial" class="form-control" placeholder="Middle Initial">
     </div>
 
     <div class="form-group">
         <label for="lastName" class="sr-only">Last Name</label>
-        <input th:field="*{lastName}" type="text" id="lastName" name="lastName" class="form-control" placeholder="First name" required>
+        <input th:field="*{lastName}" type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required>
     </div>
 
     <div class="form-group">
         <label for="phone" class="sr-only">Phone</label>
-        <input th:field="*{phone}" type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+        <input th:field="*{phone}" type="tel" id="phone" name="phone" class="form-control" placeholder="Phone" required>
     </div>
 
     <div class="form-group">
@@ -51,6 +51,59 @@
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" id="registrationButton">Register</button>
+
+    <h3>Optional</h3>
+
+    <div class="form-group">
+        <label for="facebook" class="sr-only">Facebook</label>
+        <input th:field="*{facebook}" type="url" id="facebook" name="facebook" class="form-control" placeholder="Facebook">
+    </div>
+
+    <div class="form-group">
+        <label for="twitter" class="sr-only">Twitter</label>
+        <input th:field="*{twitter}" type="url" id="twitter" name="twitter" class="form-control" placeholder="Twitter">
+    </div>
+
+    <div class="form-group">
+        <label for="instagram" class="sr-only">Instagram</label>
+        <input th:field="*{instagram}" type="url" id="instagram" name="instagram" class="form-control" placeholder="Instagram">
+    </div>
+
+    <div class="form-group">
+        <label for="linkedIn" class="sr-only">LinkedIn</label>
+        <input th:field="*{linkedIn}" type="url" id="linkedIn" name="linkedIn" class="form-control" placeholder="LinkedIn">
+    </div>
+
+    <div class="form-group">
+        <label for="snapChat" class="sr-only">SnapChat</label>
+        <input th:field="*{snapChat}" type="url" id="snapChat" name="snapChat" class="form-control" placeholder="SnapChat">
+    </div>
+
+    <div class="form-group">
+        <label for="youTube" class="sr-only">YouTube</label>
+        <input th:field="*{youTube}" type="url" id="youTube" name="youTube" class="form-control" placeholder="YouTube">
+    </div>
+
+    <div class="form-group">
+        <label for="wordPress" class="sr-only">WordPress</label>
+        <input th:field="*{wordPress}" type="url" id="wordPress" name="wordPress" class="form-control" placeholder="WordPress">
+    </div>
+
+    <div class="form-group">
+        <label for="tumblr" class="sr-only">Tumblr</label>
+        <input th:field="*{tumblr}" type="url" id="tumblr" name="tumblr" class="form-control" placeholder="Tumblr">
+    </div>
+
+    <div class="form-group">
+        <label for="medium" class="sr-only">Medium</label>
+        <input th:field="*{medium}" type="url" id="medium" name="medium" class="form-control" placeholder="Medium">
+    </div>
+
+    <div class="form-group">
+        <label for="GoodReads" class="sr-only">Medium</label>
+        <input th:field="*{goodReads}" type="url" id="goodReads" name="goodReads" class="form-control" placeholder="GoodReads">
+    </div>
+
 </form>
 
 

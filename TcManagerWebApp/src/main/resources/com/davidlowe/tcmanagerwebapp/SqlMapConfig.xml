@@ -2,6 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <typeHandlers>
+        <typeHandler javaType="com.davidlowe.tcmanagerwebapp.models.Roles"
+                     handler="com.davidlowe.tcmanagerwebapp.models.RolesTypeHandler"/>
+    </typeHandlers>
 
     <environments default="env">
         <environment id="env">

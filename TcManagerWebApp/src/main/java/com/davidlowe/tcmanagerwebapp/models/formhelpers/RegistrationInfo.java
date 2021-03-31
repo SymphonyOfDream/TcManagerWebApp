@@ -2,6 +2,8 @@ package com.davidlowe.tcmanagerwebapp.models.formhelpers;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RegistrationInfo implements Serializable
@@ -17,13 +19,20 @@ public class RegistrationInfo implements Serializable
     private boolean isPhoneCell;
     private String password1;
     private String password2;
-    private boolean error;
 
+    private String facebook;
+    private String twitter;
+    private String instagram;
+    private String linkedIn;
+    private String snapChat;
+    private String youTube;
+    private String wordPress;
+    private String tumblr;
+    private String medium;
+    private String goodReads;
 
-    public static long getSerialVersionUID()
-    {
-        return serialVersionUID;
-    }
+    private List<String> errors = new ArrayList<>();
+
 
     public String getDesiredUsername()
     {
@@ -115,14 +124,127 @@ public class RegistrationInfo implements Serializable
         this.password2 = password2;
     }
 
-    public boolean isError()
+
+    public String getFacebook()
     {
-        return error;
+        return facebook;
     }
 
-    public RegistrationInfo setError(boolean error)
+    public void setFacebook(String facebook)
     {
-        this.error = error;
+        this.facebook = facebook;
+    }
+
+    public String getTwitter()
+    {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter)
+    {
+        this.twitter = twitter;
+    }
+
+    public String getInstagram()
+    {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram)
+    {
+        this.instagram = instagram;
+    }
+
+    public String getLinkedIn()
+    {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn)
+    {
+        this.linkedIn = linkedIn;
+    }
+
+    public String getSnapChat()
+    {
+        return snapChat;
+    }
+
+    public void setSnapChat(String snapChat)
+    {
+        this.snapChat = snapChat;
+    }
+
+    public String getYouTube()
+    {
+        return youTube;
+    }
+
+    public void setYouTube(String youTube)
+    {
+        this.youTube = youTube;
+    }
+
+    public String getWordPress()
+    {
+        return wordPress;
+    }
+
+    public void setWordPress(String wordPress)
+    {
+        this.wordPress = wordPress;
+    }
+
+    public String getTumblr()
+    {
+        return tumblr;
+    }
+
+    public void setTumblr(String tumblr)
+    {
+        this.tumblr = tumblr;
+    }
+
+    public String getMedium()
+    {
+        return medium;
+    }
+
+    public void setMedium(String medium)
+    {
+        this.medium = medium;
+    }
+
+    public String getGoodReads()
+    {
+        return goodReads;
+    }
+
+    public void setGoodReads(String goodReads)
+    {
+        this.goodReads = goodReads;
+    }
+
+    public List<String> errors()
+    {
+        return errors;
+    }
+
+
+    public List<String> getErrors()
+    {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors)
+    {
+        this.errors = errors;
+    }
+
+    public RegistrationInfo addError(String error)
+    {
+        errors.add(error);
         return this;
     }
+
 }

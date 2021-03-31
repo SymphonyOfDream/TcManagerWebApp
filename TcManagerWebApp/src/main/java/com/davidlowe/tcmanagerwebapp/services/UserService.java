@@ -15,4 +15,5 @@ public interface UserService extends CrudService<User, Long>
      *         will have its password and salt fields cleared out.
      */
     User getUserForLogin(String userName, String clearTextPassword, String remoteAddress);
+
 }

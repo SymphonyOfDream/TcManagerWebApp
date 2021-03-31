@@ -1,7 +1,7 @@
 package com.davidlowe.tcmanagerwebapp.services.impl;
 
 
-import com.davidlowe.tcmanagerwebapp.models.Role;
+import com.davidlowe.tcmanagerwebapp.models.Roles;
 import com.davidlowe.tcmanagerwebapp.models.User;
 import com.davidlowe.tcmanagerwebapp.services.DbService;
 import com.davidlowe.tcmanagerwebapp.services.PersonService;
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService
                     foundUser.get().setPassword("").setSalt("");
 
                     // Get the user's roles
-                    List<Role> rolesForUser = roleService.getRolesForUser(foundUser.get());
+                    List<Roles> rolesForUser = roleService.getRolesForUser(foundUser.get());
                     foundUser.get().setRoles(rolesForUser);
                 }
                 else
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService
             }
         }
 
-//        UserService.createLoginAttempt(userName, remoteAddress, foundUser != null);
+        createLoginAttempt(userName, remoteAddress, foundUser != null);
 
         return foundUser.orElse(null);
     }
@@ -110,8 +110,10 @@ public class UserServiceImpl implements UserService
     {
         if (user.getId() < 1)
         {
-            // Users ARE Persons. Person has autoincrementing PK that Users use.
+            // Users ARE Persons. Person has auto-incrementing PK that Users use.
             personService.insert(user);
+            user.getRoles().add(Roles.USER);
+
             _dbService.insert("map.User.create", user);
         }
         else
