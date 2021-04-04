@@ -16,7 +16,7 @@ public class RegistrationInfo implements Serializable
     private String lastName;
     private String middleInitial;
     private String phone;
-    private boolean isPhoneCell;
+    private boolean phoneIsCell;
     private String password1;
     private String password2;
 
@@ -94,14 +94,14 @@ public class RegistrationInfo implements Serializable
         this.phone = phone;
     }
 
-    public boolean isPhoneCell()
+    public boolean isPhoneIsCell()
     {
-        return isPhoneCell;
+        return phoneIsCell;
     }
 
-    public void isPhoneCell(boolean phoneCell)
+    public void setPhoneIsCell(boolean global)
     {
-        isPhoneCell = phoneCell;
+        this.phoneIsCell = global;
     }
 
     public String getPassword1()

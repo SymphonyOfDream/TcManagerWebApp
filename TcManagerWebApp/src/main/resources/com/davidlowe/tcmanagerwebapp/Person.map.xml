@@ -68,7 +68,7 @@
         (
             first_name_tx,
             last_name_tx,
-            middle_initial_c,
+            middle_initial_tx,
             email_tx,
             phone_tx,
             is_phone_cell_cd,

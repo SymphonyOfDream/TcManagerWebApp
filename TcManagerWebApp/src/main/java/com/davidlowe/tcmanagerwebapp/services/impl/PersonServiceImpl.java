@@ -37,14 +37,21 @@ public class PersonServiceImpl implements PersonService
     public void insert(Person person)
             throws Exception
     {
-        if (person.getId() < 1)
+        if (person.getId() < 1 && person.getCreatorUser() != null && person.getCreatorUser().getId() > 0)
         {
             // Create operation
             _dbService.insert("map.Person.create", person);
         }
         else
         {
-            throw new Exception("Person already has a primary key and cannot be inserted.");
+            if (person.getCreatorUser() == null || person.getCreatorUser().getId() < 1)
+            {
+                throw new Exception("Person object does not have a Creator.");
+            }
+            else
+            {
+                throw new Exception("Person already has a primary key and cannot be inserted.");
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.davidlowe.tcmanagerwebapp.services.impl;
 
 
+import com.davidlowe.tcmanagerwebapp.TcManager;
 import com.davidlowe.tcmanagerwebapp.models.Roles;
 import com.davidlowe.tcmanagerwebapp.models.User;
 import com.davidlowe.tcmanagerwebapp.services.DbService;
@@ -110,11 +111,13 @@ public class UserServiceImpl implements UserService
     {
         if (user.getId() < 1)
         {
+            user.setCreatorUser(TcManager.getSystemUser());
             // Users ARE Persons. Person has auto-incrementing PK that Users use.
             personService.insert(user);
-            user.getRoles().add(Roles.USER);
+            user.addRole(Roles.USER);
 
             _dbService.insert("map.User.create", user);
+            roleService.setRolesForUser(user, TcManager.getSystemUser());
         }
         else
         {

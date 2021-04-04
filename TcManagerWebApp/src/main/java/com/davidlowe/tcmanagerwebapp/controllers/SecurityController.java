@@ -173,15 +173,15 @@ public class SecurityController
         // We know registrationInfo is not null, and has valid data.
 
         User newUser = new User();
-        // Set Person properties
         newUser
+            .setUserName(registrationInfo.getDesiredUsername())
+            .setPassword(registrationInfo.getPassword1())
             .setFirstName(registrationInfo.getFirstName())
             .setMiddleInitial(registrationInfo.getMiddleInitial())
             .setLastName(registrationInfo.getLastName())
-            .setEmail(registrationInfo.getEmail());
-        newUser
-            .setUserName(registrationInfo.getDesiredUsername())
-                .setPassword(registrationInfo.getPassword1());
+            .setEmail(registrationInfo.getEmail())
+        .setPhone(registrationInfo.getPhone())
+        .isPhoneCell();
 
         try
         {

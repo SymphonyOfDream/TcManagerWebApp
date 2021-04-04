@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="map.Listing">
 
-    <resultMap id="listingMap" type="com.davidlowe.tcmanagerwebapp.models.Role">
+    <resultMap id="listingMap" type="com.davidlowe.tcmanagerwebapp.models.Listing">
         <id property="id" column="role_id" javaType="int"/>
         <result property="name" column="address_id"/>
         <result property="price" column="price_am"/>

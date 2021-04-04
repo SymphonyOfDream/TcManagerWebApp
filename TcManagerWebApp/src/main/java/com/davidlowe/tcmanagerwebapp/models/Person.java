@@ -16,7 +16,7 @@ public class Person implements Serializable
     private String middleInitial;
     private String email;
     transient private String phone;
-    transient private String isPhoneCell;
+    transient private Boolean isPhoneCell;
     transient private Address address;
     transient private User creatorUser;
     transient private LocalDateTime creationDate;
@@ -93,14 +93,14 @@ public class Person implements Serializable
     }
 
 
-    public String isPhoneCell()
+    public Boolean isPhoneCell()
     {
         return isPhoneCell;
     }
 
-    public Person isPhoneCell(String phoneIsCell)
+    public Person isPhoneCell(Boolean isPhoneCell)
     {
-        this.isPhoneCell = phoneIsCell;
+        this.isPhoneCell = isPhoneCell;
         return this;
     }
 

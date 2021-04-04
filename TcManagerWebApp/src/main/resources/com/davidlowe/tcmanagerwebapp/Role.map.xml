@@ -38,5 +38,23 @@
         WHERE up.user_id = #{id}
     </select>
 
+
+    <insert id="insertRoleForUser" parameterType="map">
+        insert into users_roles
+        (
+            user_id, role_id, users_role_creator_user_id
+        )
+        values
+        (
+            #{userId}, #{roleId}, #{creatorUserId}
+        )
+    </insert>
+
+
+    <delete id="deleteAllRolesForUser" parameterType="com.davidlowe.tcmanagerwebapp.models.User">
+        delete from users_roles
+        where user_id = #{id}
+    </delete>
+
 </mapper>
 

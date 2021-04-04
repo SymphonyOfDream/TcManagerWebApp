@@ -79,6 +79,11 @@ public class User extends Person implements Serializable
         return this;
     }
 
+    public User addRole(Roles role)
+    {
+        roles.add(role);
+        return this;
+    }
 
     public LocalDateTime getUserCreationDate()
     {

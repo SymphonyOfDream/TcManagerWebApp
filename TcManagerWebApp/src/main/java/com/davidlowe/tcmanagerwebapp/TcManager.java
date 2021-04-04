@@ -1,6 +1,8 @@
 package com.davidlowe.tcmanagerwebapp;
 
 
+import com.davidlowe.tcmanagerwebapp.models.Roles;
+import com.davidlowe.tcmanagerwebapp.models.User;
 import com.davidlowe.tcmanagerwebapp.services.DbService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,10 @@ public class TcManager
     // Singleton.
     private static TcManager _TcManager;
 
+    private static User systemUser;
 
-    public TcManager()
+
+    private TcManager()
     {
         TcManager._TcManager = this;
 
@@ -25,7 +29,12 @@ public class TcManager
     {
         if (TcManager._TcManager == null)
         {
-            new TcManager();
+            systemUser = new User()
+                .setUserName("TC Manager System")
+                .addRole(Roles.ADMIN);
+            systemUser.setEmail("tcmanager@tcmanager.com");
+
+            TcManager._TcManager = new TcManager();
         }
 
         return TcManager._TcManager;
@@ -33,6 +42,12 @@ public class TcManager
 
     private void init()
     {
+    }
+
+
+    public static User getSystemUser()
+    {
+        return TcManager.systemUser;
     }
 
 }
