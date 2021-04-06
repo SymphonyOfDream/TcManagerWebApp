@@ -4,13 +4,12 @@ package com.davidlowe.tcmanagerwebapp.models.formhelpers;
 import java.io.Serializable;
 
 
-public class LoginInfo implements Serializable
+public class LoginInfo extends FormHelper implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
-    private boolean error;
 
     public String getUsername()
     {
@@ -34,14 +33,4 @@ public class LoginInfo implements Serializable
         return this;
     }
 
-    public boolean getError()
-    {
-        return error;
-    }
-
-    public LoginInfo setError(boolean error)
-    {
-        this.error = error;
-        return this;
-    }
 }

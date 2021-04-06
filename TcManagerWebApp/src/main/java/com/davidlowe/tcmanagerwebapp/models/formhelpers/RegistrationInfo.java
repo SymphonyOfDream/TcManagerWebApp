@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RegistrationInfo implements Serializable
+public class RegistrationInfo extends FormHelper implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -30,8 +30,6 @@ public class RegistrationInfo implements Serializable
     private String tumblr;
     private String medium;
     private String goodReads;
-
-    private List<String> errors = new ArrayList<>();
 
 
     public String getDesiredUsername()
@@ -99,9 +97,9 @@ public class RegistrationInfo implements Serializable
         return phoneIsCell;
     }
 
-    public void setPhoneIsCell(boolean global)
+    public void setPhoneIsCell(boolean phoneIsCell)
     {
-        this.phoneIsCell = global;
+        this.phoneIsCell = phoneIsCell;
     }
 
     public String getPassword1()
@@ -223,28 +221,6 @@ public class RegistrationInfo implements Serializable
     public void setGoodReads(String goodReads)
     {
         this.goodReads = goodReads;
-    }
-
-    public List<String> errors()
-    {
-        return errors;
-    }
-
-
-    public List<String> getErrors()
-    {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors)
-    {
-        this.errors = errors;
-    }
-
-    public RegistrationInfo addError(String error)
-    {
-        errors.add(error);
-        return this;
     }
 
 }

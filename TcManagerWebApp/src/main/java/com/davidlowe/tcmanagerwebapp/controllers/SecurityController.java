@@ -43,7 +43,7 @@ public class SecurityController
             return "redirect:/index";
         }
 
-        LoginInfo loginInfo = null;
+        LoginInfo loginInfo;
         if ((loginInfo = (LoginInfo)session.getAttribute(LOGIN_INFO_KEY)) != null)
         {
             session.removeAttribute(LOGIN_INFO_KEY);
@@ -75,10 +75,11 @@ public class SecurityController
         {
             if (loginInfo == null)
             {
-                loginInfo = new LoginInfo().setError(true);
+                loginInfo = new LoginInfo();
             }
 
             loginInfo.setPassword("");
+            loginInfo.getErrors().add("Both User name and password are required");
 
             session.setAttribute(LOGIN_INFO_KEY, loginInfo);
 
@@ -90,7 +91,8 @@ public class SecurityController
         // Did attempted login fail?
         if (loggedInUser == null)
         {
-            loginInfo.setPassword("").setError(true);
+            loginInfo.setPassword("");
+            loginInfo.getErrors().add("User name and/or password is incorrect");
             model.addAttribute(LOGIN_INFO_KEY, loginInfo);
             return "redirect:/security/login";
         }
@@ -112,7 +114,7 @@ public class SecurityController
             return "redirect:/index";
         }
 
-        RegistrationInfo registrationInfo = null;
+        RegistrationInfo registrationInfo;
         if ((registrationInfo = (RegistrationInfo)session.getAttribute(REGISTRATION_INFO_KEY)) != null)
         {
             session.removeAttribute(REGISTRATION_INFO_KEY);
@@ -130,7 +132,7 @@ public class SecurityController
 
 
     @PostMapping("/security/processRegistration")
-    public String processRegistration(@ModelAttribute RegistrationInfo registrationInfo, Model model, HttpSession session)
+    public String processRegistration(@ModelAttribute RegistrationInfo registrationInfo, HttpSession session)
     {
         // Is user already logged in?
         if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
@@ -142,29 +144,30 @@ public class SecurityController
         // Make sure our login info is correct.
         if (registrationInfo == null)
         {
-            registrationInfo = new RegistrationInfo().addError("SYSTEM ERROR");
+            registrationInfo = new RegistrationInfo();
+            registrationInfo.getErrors().add("SYSTEM ERROR");
         }
         else
         {
             if (StringUtils.isBlank(registrationInfo.getEmail()))
-                registrationInfo.addError("Email is required.");
+                registrationInfo.getErrors().add("Email is required.");
 
             if (StringUtils.isBlank(registrationInfo.getDesiredUsername()))
-                registrationInfo.addError("User name is required.");
+                registrationInfo.getErrors().add("User name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getFirstName()))
-                registrationInfo.addError("First name is required.");
+                registrationInfo.getErrors().add("First name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getLastName()))
-                registrationInfo.addError("Last name is required.");
+                registrationInfo.getErrors().add("Last name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getPhone()))
-                registrationInfo.addError("Phone is required.");
+                registrationInfo.getErrors().add("Phone is required.");
 
             if (StringUtils.isBlank(registrationInfo.getPassword1()))
-                registrationInfo.addError("Passwords 1&2 are required, and must match.");
+                registrationInfo.getErrors().add("Passwords 1&2 are required, and must match.");
             else if (!StringUtils.equals(registrationInfo.getPassword1(), registrationInfo.getPassword2()))
-                registrationInfo.addError("Passwords 1&2 do not match.");
+                registrationInfo.getErrors().add("Passwords 1&2 do not match.");
         }
 
         if (registrationInfo.getErrors().size() > 0)
@@ -192,7 +195,8 @@ public class SecurityController
         }
         catch (Exception e)
         {
-            session.setAttribute(REGISTRATION_INFO_KEY, registrationInfo.addError(e.toString()));
+            registrationInfo.getErrors().add(e.toString());
+            session.setAttribute(REGISTRATION_INFO_KEY, registrationInfo);
 
             return "redirect:/security/registration";
         }
