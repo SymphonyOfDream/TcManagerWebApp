@@ -10,44 +10,44 @@
     <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
 
     <div class="form-group">
-        <label for="email" class="sr-only">Email address</label>
-        <input th:field="*{email}" type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+        <label for="desiredUsername" class="sr-only">User name</label>
+        <input th:field="*{desiredUsername}" type="text" id="desiredUsername" name="desiredUsername" class="form-control" placeholder="Desired Username" aria-label="User name" required>
     </div>
 
     <div class="form-group">
-        <label for="desiredUsername" class="sr-only">User name</label>
-        <input th:field="*{desiredUsername}" type="text" id="desiredUsername" name="desiredUsername" class="form-control" placeholder="Desired Username" required>
+        <label for="email" class="sr-only">Email address</label>
+        <input th:field="*{email}" type="email" id="email" name="email" class="form-control" placeholder="Email" aria-label="Email" required autofocus>
     </div>
 
     <div class="form-group">
         <label for="firstName" class="sr-only">First Name</label>
-        <input th:field="*{firstName}" type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required>
+        <input th:field="*{firstName}" type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" aria-label="First name" required>
     </div>
 
     <div class="form-group">
         <label for="middleInitial" class="sr-only">Middle initial</label>
-        <input th:field="*{middleInitial}" type="text" id="middleInitial" name="middleInitial" class="form-control" placeholder="Middle Initial">
+        <input th:field="*{middleInitial}" type="text" id="middleInitial" name="middleInitial" class="form-control" placeholder="Middle Initial" aria-label="Middle initial">
     </div>
 
     <div class="form-group">
         <label for="lastName" class="sr-only">Last Name</label>
-        <input th:field="*{lastName}" type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required>
+        <input th:field="*{lastName}" type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name" required>
     </div>
 
     <div class="form-group">
         <label for="phone" class="sr-only">Phone</label>
-        <input th:field="*{phone}" type="tel" id="phone" name="phone" class="form-control" placeholder="Phone" required>
+        <input th:field="*{phone}" type="tel" id="phone" name="phone" class="form-control" placeholder="Phone" aria-label="Phone number" required>
     </div>
 
     <div class="form-group">
-        <input th:field="${RegistrationInfo.phoneIsCell}" type="checkbox" id="phoneIsCell" name="phoneIsCell" class="form-check-input">
+        <input th:field="${RegistrationInfo.phoneIsCell}" type="checkbox" id="phoneIsCell" name="phoneIsCell" class="form-check-input" aria-label="Is cell phone">
         <label for="phoneIsCell" class="form-check-label">Is cell phone</label>
     </div>
 
     <div class="form-group">
         <label for="password1" class="sr-only">Password</label>
-        <input th:field="*{password1}" type="password" id="password1" name="password1" class="form-control" placeholder="Password" required>
-        <input th:field="*{password2}" type="password" id="password2" name="password2" class="form-control" placeholder="Password again" required>
+        <input th:field="*{password1}" type="password" id="password1" name="password1" class="form-control" placeholder="Password" aria-label="Password" required>
+        <input th:field="*{password2}" type="password" id="password2" name="password2" class="form-control" placeholder="Password again" aria-label="Password again" required>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" id="registrationButton">Register</button>
@@ -56,52 +56,52 @@
 
     <div class="form-group">
         <label for="facebook" class="sr-only">Facebook</label>
-        <input th:field="*{facebook}" type="url" id="facebook" name="facebook" class="form-control" placeholder="Facebook">
+        <input th:field="*{facebook}" type="url" id="facebook" name="facebook" class="form-control" placeholder="Facebook" aria-label="Facebook">
     </div>
 
     <div class="form-group">
         <label for="twitter" class="sr-only">Twitter</label>
-        <input th:field="*{twitter}" type="url" id="twitter" name="twitter" class="form-control" placeholder="Twitter">
+        <input th:field="*{twitter}" type="url" id="twitter" name="twitter" class="form-control" placeholder="Twitter" aria-label="Twitter">
     </div>
 
     <div class="form-group">
         <label for="instagram" class="sr-only">Instagram</label>
-        <input th:field="*{instagram}" type="url" id="instagram" name="instagram" class="form-control" placeholder="Instagram">
+        <input th:field="*{instagram}" type="url" id="instagram" name="instagram" class="form-control" placeholder="Instagram" aria-label="Instagram">
     </div>
 
     <div class="form-group">
         <label for="linkedIn" class="sr-only">LinkedIn</label>
-        <input th:field="*{linkedIn}" type="url" id="linkedIn" name="linkedIn" class="form-control" placeholder="LinkedIn">
+        <input th:field="*{linkedIn}" type="url" id="linkedIn" name="linkedIn" class="form-control" placeholder="LinkedIn" aria-label="LinkedIn">
     </div>
 
     <div class="form-group">
         <label for="snapChat" class="sr-only">SnapChat</label>
-        <input th:field="*{snapChat}" type="url" id="snapChat" name="snapChat" class="form-control" placeholder="SnapChat">
+        <input th:field="*{snapChat}" type="url" id="snapChat" name="snapChat" class="form-control" placeholder="SnapChat" aria-label="SnapChat">
     </div>
 
     <div class="form-group">
         <label for="youTube" class="sr-only">YouTube</label>
-        <input th:field="*{youTube}" type="url" id="youTube" name="youTube" class="form-control" placeholder="YouTube">
+        <input th:field="*{youTube}" type="url" id="youTube" name="youTube" class="form-control" placeholder="YouTube" aria-label="YouTube">
     </div>
 
     <div class="form-group">
         <label for="wordPress" class="sr-only">WordPress</label>
-        <input th:field="*{wordPress}" type="url" id="wordPress" name="wordPress" class="form-control" placeholder="WordPress">
+        <input th:field="*{wordPress}" type="url" id="wordPress" name="wordPress" class="form-control" placeholder="WordPress" aria-label="WordPress">
     </div>
 
     <div class="form-group">
         <label for="tumblr" class="sr-only">Tumblr</label>
-        <input th:field="*{tumblr}" type="url" id="tumblr" name="tumblr" class="form-control" placeholder="Tumblr">
+        <input th:field="*{tumblr}" type="url" id="tumblr" name="tumblr" class="form-control" placeholder="Tumblr" aria-label="Tumblr">
     </div>
 
     <div class="form-group">
         <label for="medium" class="sr-only">Medium</label>
-        <input th:field="*{medium}" type="url" id="medium" name="medium" class="form-control" placeholder="Medium">
+        <input th:field="*{medium}" type="url" id="medium" name="medium" class="form-control" placeholder="Medium" aria-label="Medium">
     </div>
 
     <div class="form-group">
         <label for="GoodReads" class="sr-only">Medium</label>
-        <input th:field="*{goodReads}" type="url" id="goodReads" name="goodReads" class="form-control" placeholder="GoodReads">
+        <input th:field="*{goodReads}" type="url" id="goodReads" name="goodReads" class="form-control" placeholder="GoodReads" aria-label="GoodReads">
     </div>
 
 </form>

@@ -27,9 +27,10 @@ public class Person implements Serializable
         return id;
     }
 
-    public void setId(int id)
+    public Person setId(int id)
     {
         this.id = id;
+        return this;
     }
 
 

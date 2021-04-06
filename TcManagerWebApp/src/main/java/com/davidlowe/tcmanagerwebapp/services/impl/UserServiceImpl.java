@@ -111,13 +111,33 @@ public class UserServiceImpl implements UserService
     {
         if (user.getId() < 1)
         {
-            user.setCreatorUser(TcManager.getSystemUser());
+            user.setCreatorUser(TcManager.get().getSystemUser());
             // Users ARE Persons. Person has auto-incrementing PK that Users use.
             personService.insert(user);
             user.addRole(Roles.USER);
-
-            _dbService.insert("map.User.create", user);
-            roleService.setRolesForUser(user, TcManager.getSystemUser());
+            try
+            {
+                _dbService.insert("map.User.create", user);
+            }
+            catch (Exception ex)
+            {
+                // User was NOT created so we need to delete the person that was created for them
+                personService.delete(user);
+                user.setId(0);
+                throw ex;
+            }
+            try
+            {
+                roleService.setRolesForUser(user, TcManager.get().getSystemUser());
+            }
+            catch (Exception ex)
+            {
+                // Role(s) could not be set for user, so we fail the whole transaction.
+                _dbService.delete("map.User.delete", user);
+                personService.delete(user);
+                user.setId(0);
+                throw ex;
+            }
         }
         else
         {

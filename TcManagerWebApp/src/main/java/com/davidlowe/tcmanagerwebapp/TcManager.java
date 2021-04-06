@@ -15,7 +15,7 @@ public class TcManager
     // Singleton.
     private static TcManager _TcManager;
 
-    private static User systemUser;
+    private User systemUser;
 
 
     private TcManager()
@@ -29,11 +29,6 @@ public class TcManager
     {
         if (TcManager._TcManager == null)
         {
-            systemUser = new User()
-                .setUserName("TC Manager System")
-                .addRole(Roles.ADMIN);
-            systemUser.setEmail("tcmanager@tcmanager.com");
-
             TcManager._TcManager = new TcManager();
         }
 
@@ -42,12 +37,16 @@ public class TcManager
 
     private void init()
     {
+        systemUser = new User()
+                .setUserName("TC Manager System")
+                .addRole(Roles.ADMIN);
+        systemUser.setId(1).setEmail("tcmanager@tcmanager.com");
     }
 
 
-    public static User getSystemUser()
+    public User getSystemUser()
     {
-        return TcManager.systemUser;
+        return systemUser;
     }
 
 }

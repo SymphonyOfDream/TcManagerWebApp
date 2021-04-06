@@ -15,7 +15,7 @@ public class User extends Person implements Serializable
     private String userName;
     transient private String password;
     transient private String salt;
-    private Boolean isAccountLocked;
+    private Boolean accountIsLocked;
     private List<Roles> roles = new ArrayList<>();
     transient private LocalDateTime userCreationDate;
 
@@ -56,14 +56,14 @@ public class User extends Person implements Serializable
     }
 
 
-    public Boolean isAccountLocked()
+    public Boolean isAccountIsLocked()
     {
-        return isAccountLocked;
+        return accountIsLocked;
     }
 
-    public User isAccountLocked(Boolean isAccountLocked)
+    public User setAccountIsLocked(Boolean accountIsLocked)
     {
-        this.isAccountLocked = isAccountLocked;
+        this.accountIsLocked = accountIsLocked;
         return this;
     }
 
@@ -104,7 +104,7 @@ public class User extends Person implements Serializable
                 "userName='" + userName + '\'' +
                 ", hashedPassword='" + password + '\'' +
                 ", hashedPasswordSalt='" + salt + '\'' +
-                ", isAccountLocked=" + isAccountLocked +
+                ", isAccountLocked=" + accountIsLocked +
                 ", roles=" + roles +
                 ", creationDate=" + userCreationDate +
                 '}';
@@ -141,7 +141,7 @@ public class User extends Person implements Serializable
         {
             return false;
         }
-        if (!Objects.equals(isAccountLocked, user.isAccountLocked))
+        if (!Objects.equals(accountIsLocked, user.accountIsLocked))
         {
             return false;
         }
@@ -159,7 +159,7 @@ public class User extends Person implements Serializable
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (salt != null ? salt.hashCode() : 0);
-        result = 31 * result + (isAccountLocked != null ? isAccountLocked.hashCode() : 0);
+        result = 31 * result + (accountIsLocked != null ? accountIsLocked.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
         result = 31 * result + (userCreationDate != null ? userCreationDate.hashCode() : 0);
         return result;

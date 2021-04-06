@@ -51,7 +51,7 @@
         (
             #{id},
             #{userName},
-            #{locked},
+            #{accountIsLocked},
             #{password},
             #{salt}
         )

@@ -19,6 +19,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class SecurityController
 {
+    // If you change the values of *_KEY variables here, you will need to find
+    // this value across ALL html pages/fragments and change it there, too.
+    public static final String SESSION_LOGGED_IN_USER_KEY = "LoggedInUser";
     private final String LOGIN_INFO_KEY = "LoginInfo";
     private final String REGISTRATION_INFO_KEY = "RegistrationInfo";
 
@@ -34,7 +37,7 @@ public class SecurityController
     public String loginForm(Model model, HttpSession session)
     {
         // Is user already logged in?
-        if (session.getAttribute(User.class.getCanonicalName()) != null)
+        if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
         {
             session.removeAttribute(LOGIN_INFO_KEY);
             return "redirect:/index";
@@ -61,7 +64,7 @@ public class SecurityController
     public String processLogin(@ModelAttribute LoginInfo loginInfo, Model model, HttpServletRequest request, HttpSession session)
     {
         // Is user already logged in?
-        if (session.getAttribute(User.class.getCanonicalName()) != null)
+        if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
         {
             session.removeAttribute(LOGIN_INFO_KEY);
             return "redirect:/index";
@@ -93,7 +96,7 @@ public class SecurityController
         }
 
         // Successful login, so add User object to Session.
-        session.setAttribute(User.class.getCanonicalName(), loggedInUser);
+        session.setAttribute(SESSION_LOGGED_IN_USER_KEY, loggedInUser);
 
         return "redirect:/index";
     }
@@ -103,7 +106,7 @@ public class SecurityController
     public String registration(Model model, HttpSession session)
     {
         // Is user already logged in?
-        if (session.getAttribute(User.class.getCanonicalName()) != null)
+        if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
         {
             session.removeAttribute(REGISTRATION_INFO_KEY);
             return "redirect:/index";
@@ -130,7 +133,7 @@ public class SecurityController
     public String processRegistration(@ModelAttribute RegistrationInfo registrationInfo, Model model, HttpSession session)
     {
         // Is user already logged in?
-        if (session.getAttribute(User.class.getCanonicalName()) != null)
+        if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
         {
             session.removeAttribute(REGISTRATION_INFO_KEY);
             return "redirect:/index";
@@ -198,10 +201,10 @@ public class SecurityController
     }
 
 
-    @GetMapping(value = "/security/logout.html")
+    @GetMapping({"/security/logout", "/security/logout.html"})
     public String logout(HttpSession session)
     {
-        session.removeAttribute(User.class.getCanonicalName());
+        session.removeAttribute(SESSION_LOGGED_IN_USER_KEY);
         session.invalidate();
         return "redirect:/index";
     }

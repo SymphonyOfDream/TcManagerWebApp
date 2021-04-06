@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout_with_form :: layout (~{::body},'home')}">
 <head>
-    <title>TC Manager - Login</title>
+    <title>TC Manager - User Profile</title>
 </head>
 <body>
 
-<form class="form-signin" th:action="@{/security/processLogin}" th:object="${LoginInfo}" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<form class="form-signin" th:action="@{/security/process_user_profile}" th:object="${LoggedInUser}" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Edit your User profile</h1>
 
-    <label for="username" class="sr-only">User name</label>
-    <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" aria-label="User name" required autofocus>
+    <label class="sr-only">User <span th:text="*{userName}">user name</span></label>
+
+    <label for="email" class="sr-only">Email address</label>
+    <input th:field="*{email}" type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
 
     <label for="password" class="sr-only">Password</label>
-    <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password" aria-label="Password" required>
+    <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Login</button>
 
