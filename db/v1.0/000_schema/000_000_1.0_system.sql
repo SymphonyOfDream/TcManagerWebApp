@@ -28,7 +28,7 @@ CREATE TABLE addresses
   street1_tx        VARCHAR(128)   NULL,
   street2_tx        VARCHAR(128)   NULL,
   city_tx           VARCHAR(128)   NULL,
-  state_id          CHAR(2)        NOT NULL,
+  state_id          CHAR(2)        NULL,
   zip_tx            VARCHAR(10)    NULL,
 
   address_creator_user_id   INT            NOT NULL,
@@ -53,6 +53,18 @@ CREATE TABLE people
   email_tx            VARCHAR(128)   NULL,
   phone_tx            VARCHAR(13)    NULL,
   is_phone_cell_cd    BIT            NULL,
+
+  facebook            VARCHAR(128)   NULL,
+  twitter             VARCHAR(128)   NULL,
+  instagram           VARCHAR(128)   NULL,
+  linkedIn            VARCHAR(128)   NULL,
+  snapChat            VARCHAR(128)   NULL,
+  youTube             VARCHAR(128)   NULL,
+  wordPress           VARCHAR(128)   NULL,
+  tumblr              VARCHAR(128)   NULL,
+  medium              VARCHAR(128)   NULL,
+  goodReads           VARCHAR(128)   NULL,
+
   address_id          INT            NULL,
 
   person_creator_user_id     INT            NOT NULL,
