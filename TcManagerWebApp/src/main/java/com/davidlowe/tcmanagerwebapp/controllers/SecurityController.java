@@ -141,7 +141,7 @@ public class SecurityController
             return "redirect:/index";
         }
 
-        // Make sure our login info is correct.
+        // Make sure our registration info is correct.
         if (registrationInfo == null)
         {
             registrationInfo = new RegistrationInfo();
@@ -173,7 +173,6 @@ public class SecurityController
         if (registrationInfo.getErrors().size() > 0)
         {
             session.setAttribute(REGISTRATION_INFO_KEY, registrationInfo);
-
             return "redirect:/security/registration";
         }
         // We know registrationInfo is not null, and has valid data.
@@ -186,12 +185,13 @@ public class SecurityController
             .setMiddleInitial(registrationInfo.getMiddleInitial())
             .setLastName(registrationInfo.getLastName())
             .setEmail(registrationInfo.getEmail())
-        .setPhone(registrationInfo.getPhone())
-        .isPhoneCell();
+            .setPhone(registrationInfo.getPhone())
+            .isPhoneCell(registrationInfo.isPhoneIsCell());
 
         try
         {
             _userService.insert(newUser);
+            session.setAttribute(SecurityController.SESSION_LOGGED_IN_USER_KEY, newUser);
         }
         catch (Exception e)
         {

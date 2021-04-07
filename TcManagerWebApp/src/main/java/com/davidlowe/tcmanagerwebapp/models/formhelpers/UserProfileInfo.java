@@ -2,6 +2,8 @@ package com.davidlowe.tcmanagerwebapp.models.formhelpers;
 
 
 import com.davidlowe.tcmanagerwebapp.models.State;
+import com.davidlowe.tcmanagerwebapp.models.User;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +30,26 @@ public class UserProfileInfo extends FormHelper implements Serializable
 
     private List<String> errors = new ArrayList<>();
 
-
+    public UserProfileInfo(User user)
+    {
+        userName = user.getUserName();
+        currentPassword = user.getPassword();
+        newPassword1 = "";
+        newPassword2 = "";
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        middleInitial = user.getMiddleInitial();
+        email = user.getEmail();
+        phone = user.getPhone();
+        phoneIsCell = user.isPhoneCell();
+        street1 = user.getAddress().getStreet1();
+        street2 = user.getAddress().getStreet2();
+        city = user.getAddress().getCity();
+        state = user.getAddress().getState();
+        zip = user.getAddress().getZip();
+    }
+    
+    
     public String getUserName()
     {
         return userName;
@@ -128,6 +149,17 @@ public class UserProfileInfo extends FormHelper implements Serializable
     {
         this.phoneIsCell = phoneIsCell;
     }
+
+
+    public boolean hasAddress()
+    {
+        return !StringUtils.isBlank(street1)
+                || !StringUtils.isBlank(street2)
+                || !StringUtils.isBlank(city)
+                || state != null
+                || !StringUtils.isBlank(zip);
+    }
+
 
     public String getStreet1()
     {

@@ -2,6 +2,7 @@ package com.davidlowe.tcmanagerwebapp.services.impl;
 
 
 import com.davidlowe.tcmanagerwebapp.models.Person;
+import com.davidlowe.tcmanagerwebapp.services.AddressService;
 import com.davidlowe.tcmanagerwebapp.services.DbService;
 import com.davidlowe.tcmanagerwebapp.services.PersonService;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,13 @@ import java.util.Optional;
 public class PersonServiceImpl implements PersonService
 {
     private final DbService<Person> _dbService;
-    public PersonServiceImpl(DbService<Person> dbService)
+    private final AddressService _addressService;
+
+
+    public PersonServiceImpl(DbService<Person> dbService, AddressService addressService)
     {
         _dbService = dbService;
+        _addressService = addressService;
     }
 
 
@@ -40,7 +45,18 @@ public class PersonServiceImpl implements PersonService
         if (person.getId() < 1 && person.getCreatorUser() != null && person.getCreatorUser().getId() > 0)
         {
             // Create operation
-            _dbService.insert("map.Person.create", person);
+            if (person.getAddress() != null)
+                _addressService.insert(person.getAddress());
+
+            try
+            {
+                _dbService.insert("map.Person.create", person);
+            }
+            catch (Exception ex)
+            {
+                if (person.getAddress() != null)
+                    _addressService.delete(person.getAddress());
+            }
         }
         else
         {
@@ -61,13 +77,38 @@ public class PersonServiceImpl implements PersonService
     {
         if (person.getId() > 0)
         {
-            _dbService.update("map.Person.update", person);
+            boolean addressWasInserted = false;
+            if (person.getAddress() != null)
+            {
+                if (person.getAddress().getId() < 1)
+                {
+                    _addressService.insert(person.getAddress());
+                    addressWasInserted = true;
+                }
+                else
+                {
+                    _addressService.update(person.getAddress());
+                }
+            }
+
+            try
+            {
+                _dbService.update("map.Person.update", person);
+            }
+            catch (Exception ex)
+            {
+                if (addressWasInserted)
+                {
+                    _addressService.delete(person.getAddress());
+                }
+            }
         }
         else
         {
             throw new Exception("Person does not have a primary key and cannot be updated.");
         }
     }
+
 
     @Override
     public void delete(Person person)

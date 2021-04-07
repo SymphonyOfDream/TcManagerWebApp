@@ -1,6 +1,9 @@
 package com.davidlowe.tcmanagerwebapp.models;
 
 
+import com.davidlowe.tcmanagerwebapp.models.formhelpers.UserProfileInfo;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +21,58 @@ public class User extends Person implements Serializable
     private Boolean accountIsLocked;
     private List<Roles> roles = new ArrayList<>();
     transient private LocalDateTime userCreationDate;
+
+    
+    public void updateFrom(UserProfileInfo userProfileInfo)
+    {
+        if (!StringUtils.isBlank(userProfileInfo.getNewPassword1()))
+        {
+            password = userProfileInfo.getNewPassword1();
+        }
+
+        if (!StringUtils.equals(getFirstName(), userProfileInfo.getFirstName()))
+        {
+            setFirstName(userProfileInfo.getFirstName());
+        }
+        if (!StringUtils.equals(getLastName(), userProfileInfo.getLastName()))
+        {
+            setLastName(userProfileInfo.getLastName());
+        }
+        if (!StringUtils.equals(getMiddleInitial(), userProfileInfo.getMiddleInitial()))
+        {
+            setMiddleInitial(userProfileInfo.getMiddleInitial());
+        }
+        if (!StringUtils.equals(getEmail(), userProfileInfo.getEmail()))
+        {
+            setEmail(userProfileInfo.getEmail());
+        }
+        if (!StringUtils.equals(getPhone(), userProfileInfo.getPhone()))
+        {
+            setPhone(userProfileInfo.getPhone());
+        }
+        if (isPhoneCell() != userProfileInfo.isPhoneIsCell())
+        {
+            isPhoneCell(userProfileInfo.isPhoneIsCell());
+        }
+
+        if (userProfileInfo.hasAddress())
+        {
+            if (getAddress() == null)
+            {
+                setAddress(new Address());
+            }
+            Address address = getAddress();
+            address.setStreet1(userProfileInfo.getStreet1());
+            address.setStreet2(userProfileInfo.getStreet2());
+            address.setCity(userProfileInfo.getCity());
+            address.setState(userProfileInfo.getState());
+            address.setZip(userProfileInfo.getZip());
+        }
+        else
+        {
+            setAddress(null);
+        }
+    }
 
 
     public String getUserName()
