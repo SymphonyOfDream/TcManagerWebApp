@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService
     private void createLoginAttempt(String userName, String remoteAddress, boolean goodLogin)
     {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("userName", userName);
+        params.put("userNameTyped", userName);
         params.put("ipAddress", remoteAddress);
         params.put("isSuccessful", goodLogin);
 

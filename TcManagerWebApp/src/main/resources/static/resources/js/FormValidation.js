@@ -6,7 +6,7 @@ function validateText(id)
         div.removeClass("has-success");
         $("#glypcn"+id).remove();
         div.addClass("has-error has-feedback");
-        div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+        div.append('<span id="glypcn'+id+'" class="fa fa-remove form-control-feedback"></span>');
         return false;
     }
     else{
@@ -14,7 +14,7 @@ function validateText(id)
         div.removeClass("has-error");
         $("#glypcn"+id).remove();
         div.addClass("has-success has-feedback");
-        div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+        div.append('<span id="glypcn'+id+'" class="fa fa-ok form-control-feedback"></span>');
         return true;
     }
 
@@ -30,7 +30,7 @@ function validateEmail(id)
         div.removeClass("has-success");
         $("#glypcn"+id).remove();
         div.addClass("has-error has-feedback");
-        div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+        div.append('<span id="glypcn'+id+'" class="fa fa-remove form-control-feedback"></span>');
         return false;
     }
     else{
@@ -38,7 +38,7 @@ function validateEmail(id)
         div.removeClass("has-error");
         $("#glypcn"+id).remove();
         div.addClass("has-success has-feedback");
-        div.append('<span id="glypcn'+id+'" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+        div.append('<span id="glypcn'+id+'" class="fa fa-ok form-control-feedback"></span>');
         return true;
     }
 

@@ -16,8 +16,10 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Login</button>
 
-    <div th:if="*{error}" class="alert alert-error">
-        Invalid username and/or password.
+    <div th:if="*{errors}" class="alert alert-error">
+        <ul th:each="error: *{errors}">
+            <li th:text="${error}"></li>
+        </ul>
     </div>
 </form>
 

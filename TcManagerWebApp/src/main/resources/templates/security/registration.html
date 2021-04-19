@@ -14,7 +14,7 @@
     <div class="form-group">
         <label for="desiredUsername" class="sr-only">User name</label>
         <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
             <input th:field="*{desiredUsername}" type="text" id="desiredUsername" name="desiredUsername"
                    class="form-control" placeholder="Desired Username" aria-label="User name" required>
         </div>
@@ -141,6 +141,12 @@
         <label for="GoodReads" class="sr-only">Medium</label>
         <input th:field="*{goodReads}" type="url" id="goodReads" name="goodReads" class="form-control"
                placeholder="GoodReads" aria-label="GoodReads">
+    </div>
+
+    <div th:if="*{errors}" class="alert alert-error">
+        <ul th:each="error: *{errors}">
+            <li th:text="${error}"></li>
+        </ul>
     </div>
 
 </form>

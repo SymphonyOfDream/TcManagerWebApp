@@ -23,4 +23,13 @@ public class FormHelper
     {
         return !errors.isEmpty();
     }
+
+    /**
+     * Returns all errors. NOTE: this should only be used by thymeleaf
+     * @return All errors, or empty list.
+     */
+    public List<String> getErrors()
+    {
+        return errors;
+    }
 }

@@ -80,7 +80,7 @@
     </delete>
 
 
-    <insert id="creatLoginAttempt" parameterType="Map">
+    <insert id="createLoginAttempt" parameterType="Map">
         INSERT INTO users_login_attempts
         (
             user_name_typed_tx,
