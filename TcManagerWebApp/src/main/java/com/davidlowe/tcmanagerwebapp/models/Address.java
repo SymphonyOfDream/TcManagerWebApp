@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Address
 {
 
-  private long id;
+  private int id;
   private String street1;
   private String street2;
   private String city;
@@ -17,11 +17,11 @@ public class Address
   private java.sql.Timestamp creationDate;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 

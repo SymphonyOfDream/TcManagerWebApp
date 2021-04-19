@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Brokerage
 {
 
-  private long id;
+  private int id;
   private String name;
   private Realtor broker;
   private List<Realtor> realtors;
@@ -16,11 +16,11 @@ public class Brokerage
   private java.sql.Timestamp creationDate;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 

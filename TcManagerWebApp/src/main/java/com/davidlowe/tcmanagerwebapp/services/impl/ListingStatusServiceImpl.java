@@ -36,7 +36,7 @@ public class ListingStatusServiceImpl implements ListingStatusService
     }
 
     @Override
-    public Optional<ListingStatus> get(Long listingStatusId)
+    public Optional<ListingStatus> get(Integer listingStatusId)
     {
         return listingStatuses.stream().filter(r -> r.getId() == listingStatusId).findFirst();
     }

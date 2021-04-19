@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService
 
 
     @Override
-    public Optional<User> get(Long userId)
+    public Optional<User> get(Integer userId)
     {
         return _dbService.selectOne("map.User.get", userId);
     }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 
 @Controller
@@ -34,7 +35,7 @@ public class UserController
     public String userProfileForm(Model model, HttpSession session)
     {
         // Is user NOT logged in?
-        User loggedInUser = (User)session.getAttribute(SecurityController.SESSION_LOGGED_IN_USER_KEY);
+        User loggedInUser = (User) session.getAttribute(SecurityController.SESSION_LOGGED_IN_USER_KEY);
         if (loggedInUser == null)
         {
             session.removeAttribute(USER_PROFILE_INFO_KEY);
@@ -43,7 +44,7 @@ public class UserController
 
         // If we are here from processUserProfile, then our UserProfileInfo will be in the session.
         UserProfileInfo userProfileInfo;
-        if ((userProfileInfo = (UserProfileInfo)session.getAttribute(USER_PROFILE_INFO_KEY)) != null)
+        if ((userProfileInfo = (UserProfileInfo) session.getAttribute(USER_PROFILE_INFO_KEY)) != null)
         {
             // Now that we got the object, we remove it from the session.
             session.removeAttribute(USER_PROFILE_INFO_KEY);
@@ -72,7 +73,7 @@ public class UserController
     public String processUserProfile(@ModelAttribute UserProfileInfo userProfileInfo, HttpSession session)
     {
         // Is user NOT logged in?
-        User loggedInUser = (User)session.getAttribute(SecurityController.SESSION_LOGGED_IN_USER_KEY);
+        User loggedInUser = (User) session.getAttribute(SecurityController.SESSION_LOGGED_IN_USER_KEY);
         if (loggedInUser == null)
         {
             session.removeAttribute(USER_PROFILE_INFO_KEY);
@@ -84,40 +85,66 @@ public class UserController
         {
             session.removeAttribute(USER_PROFILE_INFO_KEY);
             userProfileInfo = new UserProfileInfo(loggedInUser);
-            userProfileInfo.getErrors().add("SYSTEM ERROR");
+            userProfileInfo.addError("SYSTEM ERROR");
         }
         else
         {
             if (StringUtils.isBlank(userProfileInfo.getEmail()))
-                userProfileInfo.getErrors().add("Email is required.");
+            {
+                userProfileInfo.addError("Email is required.");
+            }
 
-            if (   !StringUtils.isBlank(userProfileInfo.getNewPassword1())
-                || !StringUtils.isBlank(userProfileInfo.getNewPassword2()))
+            if (!StringUtils.isBlank(userProfileInfo.getNewPassword1())
+                    || !StringUtils.isBlank(userProfileInfo.getNewPassword2()))
             {
                 // If they entered any new password info, then the new passwords must be the same
                 if (!StringUtils.equals(userProfileInfo.getNewPassword1(), userProfileInfo.getNewPassword2()))
                 {
-                    userProfileInfo.getErrors().add("New passwords do not match.");
+                    userProfileInfo.addError("New passwords do not match.");
                 }
                 else
                 {
                     // Passwords entered and they match, the user MUST provide current password.
                     if (StringUtils.isBlank(userProfileInfo.getCurrentPassword()))
-                        userProfileInfo.getErrors().add("You must supply your current password in order to change it.");
+                    {
+                        userProfileInfo.addError("You must supply your current password in order to change it.");
+                    }
+                    else
+                    {
+                        Optional<User> fullUser = _userService.get(loggedInUser.getId());
+                        if (fullUser.isPresent())
+                        {
+                            if (!StringUtils.equals(fullUser.get().getPassword(), userProfileInfo.getCurrentPassword()))
+                            {
+                                userProfileInfo.setCurrentPassword("");
+                                userProfileInfo.addError("Entered password is not correct.");
+                            }
+                        }
+                        else
+                        {
+                            userProfileInfo.addError("SYSTEM ERROR.");
+                        }
+                    }
                 }
+            }
 
-                if (StringUtils.isBlank(userProfileInfo.getFirstName()))
-                    userProfileInfo.getErrors().add("First name is required.");
+            if (StringUtils.isBlank(userProfileInfo.getFirstName()))
+            {
+                userProfileInfo.addError("First name is required.");
+            }
 
-                if (StringUtils.isBlank(userProfileInfo.getLastName()))
-                    userProfileInfo.getErrors().add("Last name is required.");
+            if (StringUtils.isBlank(userProfileInfo.getLastName()))
+            {
+                userProfileInfo.addError("Last name is required.");
+            }
 
-                if (StringUtils.isBlank(userProfileInfo.getPhone()))
-                    userProfileInfo.getErrors().add("Phone is required.");
+            if (StringUtils.isBlank(userProfileInfo.getPhone()))
+            {
+                userProfileInfo.addError("Phone is required.");
             }
         }
 
-        if (userProfileInfo.getErrors().size() > 0)
+        if (userProfileInfo.hasErrors())
         {
             session.setAttribute(USER_PROFILE_INFO_KEY, userProfileInfo);
             return "redirect:/security/registration";

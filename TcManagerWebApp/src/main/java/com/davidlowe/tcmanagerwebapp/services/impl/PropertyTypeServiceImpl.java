@@ -36,7 +36,7 @@ public class PropertyTypeServiceImpl implements PropertyTypeService
     }
 
     @Override
-    public Optional<PropertyType> get(Long propertyTypeId)
+    public Optional<PropertyType> get(Integer propertyTypeId)
     {
         return propertyTypes.stream().filter(r -> r.getId() == propertyTypeId).findFirst();
     }

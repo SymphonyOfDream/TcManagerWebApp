@@ -36,7 +36,7 @@ public class DataInputStatusServiceImpl implements DataInputStatusService
     }
 
     @Override
-    public Optional<DataInputStatus> get(Long dataInputStatusId)
+    public Optional<DataInputStatus> get(Integer dataInputStatusId)
     {
         return dataInputStatuses.stream().filter(r -> r.getId() == dataInputStatusId).findFirst();
     }

@@ -5,7 +5,7 @@ import com.davidlowe.tcmanagerwebapp.models.Address;
 import com.davidlowe.tcmanagerwebapp.models.Person;
 
 
-public interface AddressService extends CrudService<Address, Long>
+public interface AddressService extends CrudService<Address, Integer>
 {
     void deleteAddressForPerson(Person person);
 }

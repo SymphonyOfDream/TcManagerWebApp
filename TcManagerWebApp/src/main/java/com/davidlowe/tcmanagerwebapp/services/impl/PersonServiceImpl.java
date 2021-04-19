@@ -32,7 +32,7 @@ public class PersonServiceImpl implements PersonService
     }
 
     @Override
-    public Optional<Person> get(Long personId)
+    public Optional<Person> get(Integer personId)
     {
         return _dbService.selectOne("map.Person.get", personId);
     }

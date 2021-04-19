@@ -61,7 +61,7 @@ public class SecurityController
 
 
     @PostMapping("/security/processLogin")
-    public String processLogin(@ModelAttribute LoginInfo loginInfo, Model model, HttpServletRequest request, HttpSession session)
+    public String processLogin(@ModelAttribute LoginInfo loginInfo, HttpServletRequest request, HttpSession session)
     {
         // Is user already logged in?
         if (session.getAttribute(SESSION_LOGGED_IN_USER_KEY) != null)
@@ -71,18 +71,25 @@ public class SecurityController
         }
 
         // Make sure our login info is correct.
-        if (loginInfo == null || StringUtils.isBlank(loginInfo.getUsername()) || StringUtils.isBlank(loginInfo.getPassword()))
+        if (loginInfo == null)
         {
-            if (loginInfo == null)
-            {
-                loginInfo = new LoginInfo();
-            }
+            loginInfo = new LoginInfo();
+            loginInfo.addError("SYSTEM ERROR");
+        }
+        else if (   StringUtils.isBlank(loginInfo.getUsername())
+                 || StringUtils.isBlank(loginInfo.getPassword()))
+        {
+            // Make sure any previous errors are cleared before potentially
+            // adding new errors.
+            loginInfo.clearErrors();
 
             loginInfo.setPassword("");
-            loginInfo.getErrors().add("Both User name and password are required");
+            loginInfo.addError("Both User name and password are required");
+        }
 
+        if (loginInfo.hasErrors())
+        {
             session.setAttribute(LOGIN_INFO_KEY, loginInfo);
-
             return "redirect:/security/login";
         }
         // We know loginInfo is not null, and has data in username and password.
@@ -92,10 +99,12 @@ public class SecurityController
         if (loggedInUser == null)
         {
             loginInfo.setPassword("");
-            loginInfo.getErrors().add("User name and/or password is incorrect");
-            model.addAttribute(LOGIN_INFO_KEY, loginInfo);
+            loginInfo.addError("User name and/or password are incorrect");
+            session.setAttribute(LOGIN_INFO_KEY, loginInfo);
             return "redirect:/security/login";
         }
+
+        session.removeAttribute(LOGIN_INFO_KEY);
 
         // Successful login, so add User object to Session.
         session.setAttribute(SESSION_LOGGED_IN_USER_KEY, loggedInUser);
@@ -145,32 +154,36 @@ public class SecurityController
         if (registrationInfo == null)
         {
             registrationInfo = new RegistrationInfo();
-            registrationInfo.getErrors().add("SYSTEM ERROR");
+            registrationInfo.addError("SYSTEM ERROR");
         }
         else
         {
+            // Make sure any previous errors are cleared before potentially
+            // adding new errors.
+            registrationInfo.clearErrors();
+
             if (StringUtils.isBlank(registrationInfo.getEmail()))
-                registrationInfo.getErrors().add("Email is required.");
+                registrationInfo.addError("Email is required.");
 
             if (StringUtils.isBlank(registrationInfo.getDesiredUsername()))
-                registrationInfo.getErrors().add("User name is required.");
+                registrationInfo.addError("User name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getFirstName()))
-                registrationInfo.getErrors().add("First name is required.");
+                registrationInfo.addError("First name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getLastName()))
-                registrationInfo.getErrors().add("Last name is required.");
+                registrationInfo.addError("Last name is required.");
 
             if (StringUtils.isBlank(registrationInfo.getPhone()))
-                registrationInfo.getErrors().add("Phone is required.");
+                registrationInfo.addError("Phone is required.");
 
             if (StringUtils.isBlank(registrationInfo.getPassword1()))
-                registrationInfo.getErrors().add("Passwords 1&2 are required, and must match.");
+                registrationInfo.addError("Passwords 1&2 are required, and must match.");
             else if (!StringUtils.equals(registrationInfo.getPassword1(), registrationInfo.getPassword2()))
-                registrationInfo.getErrors().add("Passwords 1&2 do not match.");
+                registrationInfo.addError("Passwords 1&2 do not match.");
         }
 
-        if (registrationInfo.getErrors().size() > 0)
+        if (registrationInfo.hasErrors())
         {
             session.setAttribute(REGISTRATION_INFO_KEY, registrationInfo);
             return "redirect:/security/registration";
@@ -195,7 +208,7 @@ public class SecurityController
         }
         catch (Exception e)
         {
-            registrationInfo.getErrors().add(e.toString());
+            registrationInfo.addError(e.toString());
             session.setAttribute(REGISTRATION_INFO_KEY, registrationInfo);
 
             return "redirect:/security/registration";

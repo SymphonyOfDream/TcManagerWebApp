@@ -4,7 +4,7 @@ package com.davidlowe.tcmanagerwebapp.services;
 import com.davidlowe.tcmanagerwebapp.models.User;
 
 
-public interface UserService extends CrudService<User, Long>
+public interface UserService extends CrudService<User, Integer>
 {
     /**
      * Authenticates the user using their typed-in user name and clear text password.

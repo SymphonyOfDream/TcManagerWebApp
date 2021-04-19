@@ -36,7 +36,7 @@ public class DocumentComplianceStatusServiceImpl implements DocumentComplianceSt
     }
 
     @Override
-    public Optional<DocumentComplianceStatus> get(Long documentComplianceStatusId)
+    public Optional<DocumentComplianceStatus> get(Integer documentComplianceStatusId)
     {
         return documentComplianceStatuses.stream().filter(r -> r.getId() == documentComplianceStatusId).findFirst();
     }

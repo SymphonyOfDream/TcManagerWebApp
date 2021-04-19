@@ -5,9 +5,9 @@
 </head>
 <body>
 
-<form class="form-signin" th:action="@{/security/processLogin}" th:object="${LoginInfo}" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
+<form class="form-signin" th:action="@{/security/processLogin}" th:object="${LoginInfo}" method="post">
     <label for="username" class="sr-only">User name</label>
     <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" aria-label="User name" required autofocus>
 

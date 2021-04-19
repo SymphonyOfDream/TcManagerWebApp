@@ -29,7 +29,7 @@ public class AddressServiceImpl implements AddressService
 
 
     @Override
-    public Optional<Address> get(Long addressId)
+    public Optional<Address> get(Integer addressId)
     {
         if (addressId != null)
         {

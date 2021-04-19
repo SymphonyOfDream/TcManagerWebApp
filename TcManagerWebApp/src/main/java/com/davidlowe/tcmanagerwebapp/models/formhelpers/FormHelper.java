@@ -9,14 +9,18 @@ public class FormHelper
 {
     private List<String> errors = new ArrayList<>();
 
-    public List<String> getErrors()
+    public void addError(String error)
     {
-        return errors;
+        errors.add(error);
     }
 
-    public void setErrors(List<String> errors)
+    public void clearErrors()
     {
-        this.errors = errors;
+        errors.clear();
     }
 
+    public boolean hasErrors()
+    {
+        return !errors.isEmpty();
+    }
 }

@@ -27,7 +27,7 @@ public class ListingServiceImpl implements ListingService
     }
 
     @Override
-    public Optional<Listing> get(Long listingId)
+    public Optional<Listing> get(Integer listingId)
     {
         return _dbService.selectOne("map.Listing.get", listingId);
     }

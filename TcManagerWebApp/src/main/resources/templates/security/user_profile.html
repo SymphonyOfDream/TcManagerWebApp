@@ -5,8 +5,9 @@
 </head>
 <body>
 
+<h1 class="h3 mb-3 font-weight-normal">Edit your User profile</h1>
+
 <form class="form-signin" th:action="@{/security/process_user_profile}" th:object="${LoggedInUser}" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Edit your User profile</h1>
 
     <label class="sr-only">User <span th:text="*{userName}">user name</span></label>
 
